@@ -1,0 +1,8 @@
+<h1>{{title}}</h1>
+
+
+<ul>
+    {% for challenge in monthly_challenges %}
+    <li><a href="{{challenge}}">{{ challenge }}</a></li>
+    {% endfor %}
+</ul>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
+
 monthly_challenges = {
     'january': 'Eat no meat!',
     'february': 'Learn python!',
@@ -21,19 +22,15 @@ monthly_challenges = {
 
 
 def index(request: HttpRequest):
-    html = "<h1>Challenges</h1>"
 
-    html_list = "<ol>"
+    title = 'challenges'
 
-    for monthly_challenge in monthly_challenges:
-        path_url = reverse('month-challenge', args=[monthly_challenge])
-        html_list += f"<a href='{path_url}'> <li>{monthly_challenge.capitalize()}</li> </a>"
+    response_data = {
+        "monthly_challenges": monthly_challenges,
+        'title': title.capitalize(),
+    }
 
-    html_list += "</ol>"
-
-    html += html_list
-
-    return HttpResponse(html)
+    return render(request, 'challenges/index.html', response_data)
 
 
 def monthly_challenge_by_number(request: HttpRequest, month: int) -> HttpResponseRedirect | HttpResponseNotFound:
@@ -57,8 +54,13 @@ def monthly_challenge_by_number(request: HttpRequest, month: int) -> HttpRespons
 
 def monthly_challenge(request: HttpRequest, month: str) -> HttpResponse | HttpResponseNotFound:
     try:
-        challenge_text = monthly_challenges[month]
-        html = f"<h1>{challenge_text}</h1>"
-        return HttpResponse(html)
+        title = f"The challenge for {month} is:"
+        challenge = monthly_challenges[month]
+
+        response_data = {
+            'title': title,
+            'challenge': challenge
+        }
+        return render(request, 'challenges/monthly_challenge.html', response_data)
     except KeyError:
         return HttpResponseNotFound('This month does not exist or is not expected')
