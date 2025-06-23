@@ -1,3 +1,15 @@
-<h1>{{title}}</h1>
+{% extends "base.html" %}
 
-<p>{{challenge}}</p>
+
+{% block 'content' %}
+
+    <h1>{{title|title}}</h1>
+
+
+    {% if challenge is not None %}
+        <p>{{challenge}}</p>
+    {% else  %}
+        <p>No challenge available</p>
+    {% endif %}
+
+{% endblock 'content' %}

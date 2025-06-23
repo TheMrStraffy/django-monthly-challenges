@@ -1,8 +1,17 @@
-<h1>{{title}}</h1>
-
-
-<ul>
-    {% for challenge in monthly_challenges %}
-    <li><a href="{{challenge}}">{{ challenge }}</a></li>
-    {% endfor %}
-</ul>
+{% extends "base.html" %}
+    
+{% block 'page-title' %}
+    {{title|title}}
+{% endblock 'page-title' %}
+    
+{% block 'content' %}
+<h1>
+    {{title|title}}
+</h1>
+    <ul>
+        {% for challenge in monthly_challenges %}
+        <li><a href="{% url "month-challenge" month=challenge %}">{{ challenge|title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock 'content' %}
+    
