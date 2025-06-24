@@ -1,15 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "challenges/challenge.css" %}">
+{% endblock css_files %}
 
 
-{% block 'content' %}
+{% block content %}
+
+<div class="challenge-content">
 
     <h1>{{title|title}}</h1>
-
-
+    
+    
     {% if challenge is not None %}
-        <p>{{challenge}}</p>
+        <p class="fallback">{{challenge}}</p>
     {% else  %}
-        <p>No challenge available</p>
+        <p class="fallback">No challenge available</p>
     {% endif %}
+</div>
 
-{% endblock 'content' %}
+
+{% endblock content %}
